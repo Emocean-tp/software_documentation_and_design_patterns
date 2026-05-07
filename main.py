@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from models import Base
 from dal import SqlAlchemyRepository, CsvLoader
-from bll import RentalImportService
+from bll import MovieImportService
 
 
 def main():
@@ -13,20 +13,18 @@ def main():
     Base.metadata.create_all(engine)
 
     Session = sessionmaker(bind=engine)
-
     session = Session()
 
     repo = SqlAlchemyRepository(session)
-
     loader = CsvLoader()
 
-    service = RentalImportService(repo, loader)
+    service = MovieImportService(repo, loader)
 
-    print("Starting import...")
+    print("Starting IMDB import...")
 
     service.process_data("data.csv")
 
-    print("Import completed!")
+    print("IMDB import completed!")
 
 
 if __name__ == "__main__":

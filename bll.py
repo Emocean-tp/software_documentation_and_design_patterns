@@ -1,10 +1,8 @@
-from datetime import datetime
-
-from models import Customer, Car, Rental
+from models import Movie, Actor, MovieActor, Review, Rating, Fact, BoxOffice
 from dal import IRepository, IFileLoader
 
 
-class RentalImportService:
+class MovieImportService:
 
     def __init__(self, repo: IRepository, loader: IFileLoader):
         self.repo = repo
@@ -14,55 +12,70 @@ class RentalImportService:
 
         rows = self.loader.load_csv(file_path)
 
-        customers = {}
-        cars = {}
+        movies = {}
+        actors = {}
 
         for row in rows:
 
-            email = row['customer_email']
+            movie_title = row['movie_title']
+            actor_key = f"{row['actor_first_name']}_{row['actor_last_name']}"
 
-            if email not in customers:
+            if movie_title not in movies:
 
-                customer = Customer(
-                    firstName=row['customer_first_name'],
-                    lastName=row['customer_last_name'],
-                    email=email
+                movie = Movie(
+                    title=row['movie_title'],
+                    description=row['movie_description'],
+                    releaseYear=int(row['release_year']),
+                    genre=row['genre']
                 )
 
-                customers[email] = customer
-                self.repo.add(customer)
+                movies[movie_title] = movie
+                self.repo.add(movie)
 
-            car_key = f"{row['car_brand']}_{row['car_model']}"
-
-            if car_key not in cars:
-
-                car = Car(
-                    brand=row['car_brand'],
-                    model=row['car_model'],
-                    year=int(row['car_year']),
-                    pricePerDay=float(row['price_per_day'])
+                box_office = BoxOffice(
+                    movie=movie,
+                    budget=float(row['budget']),
+                    worldwideGross=float(row['worldwide_gross'])
                 )
 
-                cars[car_key] = car
-                self.repo.add(car)
+                self.repo.add(box_office)
 
-            rental = Rental(
-                customer=customers[email],
-                car=cars[car_key],
+            if actor_key not in actors:
 
-                startDate=datetime.strptime(
-                    row['start_date'],
-                    "%Y-%m-%d"
-                ).date(),
+                actor = Actor(
+                    firstName=row['actor_first_name'],
+                    lastName=row['actor_last_name']
+                )
 
-                endDate=datetime.strptime(
-                    row['end_date'],
-                    "%Y-%m-%d"
-                ).date(),
+                actors[actor_key] = actor
+                self.repo.add(actor)
 
-                totalPrice=float(row['total_price'])
+            movie_actor = MovieActor(
+                movie=movies[movie_title],
+                actor=actors[actor_key],
+                roleName=row['role_name']
             )
 
-            self.repo.add(rental)
+            review = Review(
+                movie=movies[movie_title],
+                criticName=row['critic_name'],
+                comment=row['review_comment']
+            )
+
+            rating = Rating(
+                movie=movies[movie_title],
+                criticName=row['critic_name'],
+                score=float(row['rating_score'])
+            )
+
+            fact = Fact(
+                movie=movies[movie_title],
+                factText=row['fact_text']
+            )
+
+            self.repo.add(movie_actor)
+            self.repo.add(review)
+            self.repo.add(rating)
+            self.repo.add(fact)
 
         self.repo.commit()

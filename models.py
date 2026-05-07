@@ -1,44 +1,95 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship, declarative_base
 
 Base = declarative_base()
 
 
-class Customer(Base):
-    __tablename__ = 'customers'
+class Movie(Base):
+    __tablename__ = 'movies'
 
-    customerID = Column(Integer, primary_key=True)
+    movieID = Column(Integer, primary_key=True)
+    title = Column(String)
+    description = Column(String)
+    releaseYear = Column(Integer)
+    genre = Column(String)
+
+    actors = relationship("MovieActor", back_populates="movie")
+    reviews = relationship("Review", back_populates="movie")
+    ratings = relationship("Rating", back_populates="movie")
+    facts = relationship("Fact", back_populates="movie")
+    boxOffice = relationship("BoxOffice", back_populates="movie")
+
+
+class Actor(Base):
+    __tablename__ = 'actors'
+
+    actorID = Column(Integer, primary_key=True)
     firstName = Column(String)
     lastName = Column(String)
-    email = Column(String)
 
-    rentals = relationship("Rental", back_populates="customer")
-
-
-class Car(Base):
-    __tablename__ = 'cars'
-
-    carID = Column(Integer, primary_key=True)
-    brand = Column(String)
-    model = Column(String)
-    year = Column(Integer)
-    pricePerDay = Column(Float)
-
-    rentals = relationship("Rental", back_populates="car")
+    movies = relationship("MovieActor", back_populates="actor")
 
 
-class Rental(Base):
-    __tablename__ = 'rentals'
+class MovieActor(Base):
+    __tablename__ = 'movie_actors'
 
-    rentalID = Column(Integer, primary_key=True)
+    movieActorID = Column(Integer, primary_key=True)
 
-    customerID = Column(Integer, ForeignKey('customers.customerID'))
-    carID = Column(Integer, ForeignKey('cars.carID'))
+    movieID = Column(Integer, ForeignKey('movies.movieID'))
+    actorID = Column(Integer, ForeignKey('actors.actorID'))
 
-    startDate = Column(Date)
-    endDate = Column(Date)
+    roleName = Column(String)
 
-    totalPrice = Column(Float)
+    movie = relationship("Movie", back_populates="actors")
+    actor = relationship("Actor", back_populates="movies")
 
-    customer = relationship("Customer", back_populates="rentals")
-    car = relationship("Car", back_populates="rentals")
+
+class Review(Base):
+    __tablename__ = 'reviews'
+
+    reviewID = Column(Integer, primary_key=True)
+
+    movieID = Column(Integer, ForeignKey('movies.movieID'))
+
+    criticName = Column(String)
+    comment = Column(String)
+
+    movie = relationship("Movie", back_populates="reviews")
+
+
+class Rating(Base):
+    __tablename__ = 'ratings'
+
+    ratingID = Column(Integer, primary_key=True)
+
+    movieID = Column(Integer, ForeignKey('movies.movieID'))
+
+    criticName = Column(String)
+    score = Column(Float)
+
+    movie = relationship("Movie", back_populates="ratings")
+
+
+class Fact(Base):
+    __tablename__ = 'facts'
+
+    factID = Column(Integer, primary_key=True)
+
+    movieID = Column(Integer, ForeignKey('movies.movieID'))
+
+    factText = Column(String)
+
+    movie = relationship("Movie", back_populates="facts")
+
+
+class BoxOffice(Base):
+    __tablename__ = 'box_office'
+
+    boxOfficeID = Column(Integer, primary_key=True)
+
+    movieID = Column(Integer, ForeignKey('movies.movieID'))
+
+    budget = Column(Float)
+    worldwideGross = Column(Float)
+
+    movie = relationship("Movie", back_populates="boxOffice")
