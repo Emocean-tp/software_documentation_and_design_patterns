@@ -1,0 +1,397 @@
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    background: #121212;
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+}
+
+.topbar {
+
+    height: 75px;
+
+    background: #1c1c1c;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 35px;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 100;
+}
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: #f5c518;
+}
+
+.search-box {
+
+    width: 420px;
+
+    height: 45px;
+
+    background: #2b2b2b;
+
+    border-radius: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 18px;
+
+    gap: 12px;
+}
+
+.search-box input {
+
+    width: 100%;
+
+    background: transparent;
+
+    border: none;
+
+    outline: none;
+
+    color: white;
+
+    font-size: 15px;
+}
+
+.top-icons {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    font-size: 20px;
+}
+
+.profile {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #f5c518;
+
+    color: black;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.sidebar {
+
+    width: 220px;
+
+    background: #1a1a1a;
+
+    position: fixed;
+
+    top: 75px;
+    left: 0;
+    bottom: 0;
+
+    padding-top: 25px;
+}
+
+.menu-item {
+
+    padding: 18px 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.menu-item:hover {
+
+    background: #2b2b2b;
+}
+
+.menu-item.active {
+
+    background: #f5c518;
+
+    color: black;
+
+    font-weight: bold;
+}
+
+.content {
+
+    margin-left: 220px;
+
+    margin-top: 75px;
+
+    padding: 35px;
+}
+
+.content-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+}
+
+.content-top h1 {
+
+    font-size: 36px;
+}
+
+.add-btn {
+
+    background: #f5c518;
+
+    color: black;
+
+    padding: 14px 22px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(320px, 1fr));
+
+    gap: 28px;
+}
+
+.movie-card {
+
+    background: #1e1e1e;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    transition: 0.2s;
+}
+
+.movie-card:hover {
+
+    transform: translateY(-5px);
+}
+
+.movie-poster {
+
+    height: 220px;
+
+    background: linear-gradient(
+        135deg,
+        #f5c518,
+        #ff9800
+    );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 70px;
+
+    color: black;
+}
+
+.movie-info {
+
+    padding: 22px;
+}
+
+.movie-info h2 {
+
+    margin-bottom: 8px;
+}
+
+.director {
+
+    color: #b3b3b3;
+
+    margin-bottom: 20px;
+}
+
+.details {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+}
+
+.details span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.buttons {
+
+    display: flex;
+
+    gap: 15px;
+}
+
+.edit-btn,
+.delete-btn {
+
+    flex: 1;
+
+    padding: 12px;
+
+    text-align: center;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+.edit-btn {
+
+    background: #2196f3;
+
+    color: white;
+}
+
+.delete-btn {
+
+    background: #e53935;
+
+    color: white;
+}
+
+.form-page {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    height: 100vh;
+}
+
+.form-container {
+
+    width: 450px;
+
+    background: #1e1e1e;
+
+    padding: 40px;
+
+    border-radius: 20px;
+}
+
+.form-container h1 {
+
+    margin-bottom: 25px;
+
+    text-align: center;
+}
+
+.form-container form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.form-container input {
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    background: #2b2b2b;
+
+    color: white;
+}
+
+.form-container button {
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #f5c518;
+
+    color: black;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
