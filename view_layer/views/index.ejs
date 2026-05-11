@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>IMDb Movies</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-film"></i>
+
+        <span>IMDb</span>
+
+    </div>
+
+    <div class="search-box">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            placeholder="Search movies..."
+        >
+
+    </div>
+
+    <div class="top-icons">
+
+        <i class="fa-regular fa-bookmark"></i>
+
+        <i class="fa-solid fa-bell"></i>
+
+        <div class="profile">
+            <i class="fa-solid fa-user"></i>
+        </div>
+
+    </div>
+
+</header>
+
+<aside class="sidebar">
+
+    <div class="menu-item active">
+        <i class="fa-solid fa-film"></i>
+        <span>Movies</span>
+    </div>
+
+    <div class="menu-item">
+        <i class="fa-solid fa-star"></i>
+        <span>Top Rated</span>
+    </div>
+
+    <div class="menu-item">
+        <i class="fa-solid fa-fire"></i>
+        <span>Trending</span>
+    </div>
+
+    <div class="menu-item">
+        <i class="fa-solid fa-tv"></i>
+        <span>TV Shows</span>
+    </div>
+
+</aside>
+
+<main class="content">
+
+    <div class="content-top">
+
+        <h1>Movie Collection</h1>
+
+        <a href="/add" class="add-btn">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Movie
+
+        </a>
+
+    </div>
+
+    <div class="cards">
+
+        <% movies.forEach(movie => { %>
+
+        <div class="movie-card">
+
+            <div class="movie-poster">
+
+                <i class="fa-solid fa-clapperboard"></i>
+
+            </div>
+
+            <div class="movie-info">
+
+                <h2><%= movie.title %></h2>
+
+                <p class="director">
+
+                    <%= movie.director %>
+
+                </p>
+
+                <div class="details">
+
+                    <span>
+                        <i class="fa-solid fa-film"></i>
+                        <%= movie.genre %>
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-star"></i>
+                        <%= movie.rating %>
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-calendar"></i>
+                        <%= movie.releaseYear %>
+                    </span>
+
+                </div>
+
+                <div class="buttons">
+
+                    <a
+                        href="/edit/<%= movie.id %>"
+                        class="edit-btn"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="/delete/<%= movie.id %>"
+                        class="delete-btn"
+                    >
+                        Delete
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <% }) %>
+
+    </div>
+
+</main>
+
+</body>
+</html>
